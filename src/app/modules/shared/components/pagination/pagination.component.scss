@@ -1,0 +1,44 @@
+.mist-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+    &__btn {
+        border-radius: 4px;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        &:not(:last-child) {
+            margin-right: 4px;
+        }
+        &:not(:first-child) {
+            margin-left: 4px;
+        }
+        &.__nav {
+            display: flex;
+        }
+
+        &:hover {
+            background-color: #4d9bf1;
+            color: white;
+            & > svg {
+                fill: white;
+            }
+        }
+        &:disabled,
+        &[disabled] {
+            background-color: rgb(241, 241, 241);
+            cursor: default;
+            & > svg {
+                fill: rgb(227, 228, 230);
+            }
+        }
+
+        &.active {
+            background-color: #4d9bf1;
+            color: white;
+        }
+    }
+}
