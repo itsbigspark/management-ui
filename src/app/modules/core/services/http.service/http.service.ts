@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '@environments/environment';
 import {
-    Http,
-    RequestOptionsArgs,
-    Response,
-    Headers,
-    XHRBackend
-} from '@angular/http';
+    HttpClient,
+    HttpRequest,
+    HttpResponse,
+    HttpHeaders,
+    HttpXhrBackend
+} from '@angular/common/http';
 import { Location } from '@angular/common';
 
 import { MistRequestOptions } from '@app/modules/core/services/http.service/mist-request-options';
@@ -17,13 +17,13 @@ import { LoaderService } from '@app/modules/core/services/loader.service/loader.
 
 
 @Injectable()
-export class HttpService extends Http {
+export class HttpService extends HttpClient {
     port: string;
     apiUrl: string;
     private requestCount: number;
 
     constructor(
-        backend: XHRBackend,
+        backend: HttpXhrBackend,
         defaultOptions: MistRequestOptions,
         // private location: Location,
         private loaderService: LoaderService

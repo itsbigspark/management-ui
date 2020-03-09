@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Worker, Job } from '@app/modules/shared/models';
-import { HttpService } from '@app/modules/core/services/http.service/_index';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Job, Worker} from '@app/modules/shared/models';
+import {HttpService} from '@core/services';
 
 @Injectable()
 export class HttpWorkersService {
@@ -15,23 +14,23 @@ export class HttpWorkersService {
 
     public getAll(): Observable<Worker[]> {
         return this.http.get(this.baseUrl)
-            .map((res: Response) => this.extractWorkers(res))
+            .map((res: Response) => this.extractWorkers(res));
     }
 
     public get(id): Observable<any> {
         return this.http.get(`${this.baseUrl}/${id}`)
-            .map((res: Response) => res.json())
+            .map((res: Response) => res.json());
     }
 
     public getJobs(params): Observable<any> {
         let url = this.baseUrl + `/${params.workerId}/jobs?paginate=true`;
 
         if (params.pagination) {
-            url += `&offset=${params.pagination.offset}`
+            url += `&offset=${params.pagination.offset}`;
         }
 
         return this.http.get(url)
-            .map((res: Response) => { return this.extractJobs(res) })
+            .map((res: Response) => { return this.extractJobs(res); })
             .catch(this.handleError);
     }
 
@@ -51,17 +50,17 @@ export class HttpWorkersService {
         const data = res.json();
         const jobs: Job[] = [];
         if (data.jobs) {
-            for (let index in data.jobs) {
+            for (const index in data.jobs) {
                 if (data.jobs.hasOwnProperty(index)) {
-                    let job = this.toJob(data.jobs[index]);
+                    const job = this.toJob(data.jobs[index]);
                     jobs.push(job);
                 }
             }
             return { jobs: jobs, total: data.total };
         } else {
-            for (let index in data) {
+            for (const index in data) {
                 if (data.hasOwnProperty(index)) {
-                    let job = this.toJob(data[index]);
+                    const job = this.toJob(data[index]);
                     jobs.push(job);
                 }
             }
@@ -80,9 +79,9 @@ export class HttpWorkersService {
     private extractWorkers(res: Response) {
         const data = res.json();
         const workers: Worker[] = [];
-        for (let index in data) {
+        for (const index in data) {
             if (data.hasOwnProperty(index)) {
-                let worker = this.toWorker(data[index]);
+                const worker = this.toWorker(data[index]);
                 workers.push(worker);
             }
         }
@@ -90,8 +89,7 @@ export class HttpWorkersService {
     }
 
     private toWorker(data): Worker {
-        const job = new Worker(data);
-        return job;
+      return new Worker(data);
     }
 
 }

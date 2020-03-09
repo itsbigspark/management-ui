@@ -1,6 +1,6 @@
-import { BaseRequestOptions } from '@angular/http';
+import { HttpRequest } from '@angular/common/http';
 
-export class MistRequestOptions extends BaseRequestOptions {
+export class MistRequestOptions extends Request {
 
   constructor(mistOptions?: any) {
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response} from '@angular/http';
+import { HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
@@ -41,9 +41,9 @@ export class HttpArtifactsService {
       url = this.baseUrl + `/${id}`;
     }
     return this.http.get(url)
-      .map( (contexts: Response) => {
-        return contexts.json();
-      })
+      .map( (contexts: HttpResponse<any>) => {
+        return contexts.body;
+      });
   }
   // TODO: proper upload
   public uploadArtifact(context: any) {

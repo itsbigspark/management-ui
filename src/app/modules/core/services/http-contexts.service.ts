@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Context } from '@app/modules/shared/models';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '@app/modules/core/services/http.service/http.service';
+import {HttpResponse} from '@node_modules/@angular/common/http';
 
 @Injectable()
 export class HttpContextsService {
@@ -42,9 +42,9 @@ export class HttpContextsService {
             url = this.baseUrl + `/${id}`;
         }
         return this.http.get(url)
-            .map((contexts: Response) => {
-                return contexts.json();
-            })
+            .map((contexts: HttpResponse<any>) => {
+                return contexts.body;
+            });
     }
 
     public create(context: Context) {
